@@ -1,6 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS `fist_data_base`;
-
-CREATE TABLE `fist_data_base`.`students` (
+CREATE SCHEMA `first_data_base` ;
+CREATE TABLE `first_data_base`.`students` (
   `id_student` INT NOT NULL,
   `name` VARCHAR(255) NULL,
   `age` INT NULL,
@@ -20,6 +20,11 @@ WHERE id_student = 1;
 DELETE 
 	FROM students
 WHERE id_student = 3;
+
+SELECT NAME FROM STUDENTS;
+SELECT NAME FROM STUDENTS WHERE NAME LIKE 'F%';
+
+SELECT NAME FROM STUDENTS ORDER BY NAME ASC;
 
 DROP TABLE student;
 DROP SCHEMA first_data_base;    
