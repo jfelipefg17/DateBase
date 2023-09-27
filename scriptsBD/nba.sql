@@ -70,7 +70,7 @@ INSERT INTO jugadores VALUES (12,'Kirk Snyder','Nevada-Reno','6-6',225,'G','Timb
 INSERT INTO jugadores VALUES (13,'Sebastian Telfair','Abraham Lincoln HS','6-0',175,'G','Timberwolves');
 INSERT INTO jugadores VALUES (14,'Antoine Walker','Kentucky','6-9',245,'F','Timberwolves');
 INSERT INTO jugadores VALUES (21,'Elton brand','duke','6-8',254,'F','Clippers');
-INSERT INTO jugadores VALUES (22,'Paul Davis','Michigan','6-11',270,'c','Clippers');
+INSERT INTO jugadores VALUES (22,'Paul Davis','Michigan','6-11',270,'C','Clippers');
 INSERT INTO jugadores VALUES (23,'Dan Dickau','Gonzaga','6-0',180,'G','Clippers');
 INSERT INTO jugadores VALUES (24,'Nick Fazekas','Nevada-Reno','6-11',235,'F','Clippers');
 INSERT INTO jugadores VALUES (25,'Chris Kaman','Central Michigan','7-0',265,'C','Clippers');
@@ -18558,3 +18558,7 @@ INSERT INTO partidos VALUES (15657,'Suns','Hornets',68,65,'07/08');
 INSERT INTO partidos VALUES (15658,'Suns','Spurs',105,157,'07/08');
 INSERT INTO partidos VALUES (15659,'Suns','Rockets',105,57,'07/08');
 INSERT INTO partidos VALUES (15660,'Suns','Mavericks',69,144,'07/08');
+
+
+select *
+	FROM equipos ;

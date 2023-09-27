@@ -21,4 +21,21 @@ CREATE TABLE personajes (
   id_creador INT UNSIGNED NOT NULL,
   FOREIGN KEY (id_creador) REFERENCES creador(id_creador)
   );
+  
+INSERT INTO creador VALUES(1,'Marvel');
+INSERT INTO creador VALUES(2,'DC Comics');
+INSERT INTO creador VALUES(3,'DC Comics');
 
+INSERT INTO personajes VALUES(1,'bruce','hulk',4,9,'8',11,5,'ser muy fuerte',1);
+INSERT INTO personajes VALUES(2,'alguno loco','loco',9,7,'9',4,7,'nada',2);
+
+UPDATE personajes
+	SET aparicion = 20
+WHERE id_personaje = 1;
+
+DELETE
+	FROM personajes
+WHERE id_personaje =2;
+
+SELECT *
+	FROM personajes;

@@ -1,4 +1,4 @@
-CREATE SCHEMA `fist_data_base`;
+CREATE SCHEMA IF NOT EXISTS `fist_data_base`;
 
 CREATE TABLE `fist_data_base`.`students` (
   `id_student` INT NOT NULL,
