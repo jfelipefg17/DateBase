@@ -4,6 +4,60 @@ CREATE DATABASE IF NOT EXISTS nba;
 #seleccionar la base de datos
 USE nba;
 
+SELECT COUNT(*), MAX(Asistencias_por_partido) 
+FROM ESTADISTICAS 
+WHERE MAX(Asistencias_por_partido) = 34 
+GROUP BY MAX(Asistencias_por_partido);
+
+SELECT COUNT(*), MAX(Asistencias_por_partido) 
+FROM ESTADISTICAS 
+GROUP BY Asistencias_por_partido 
+HAVING Asistencias_por_partido = 34;
+
+
+SELECT SUM(J.PESO) 
+FROM JUGADORES AS J 
+INNER JOIN EQUIPOS AS E ON J.NOMBRE_EQUIPO = E.NOMBRE  
+WHERE (J.POSICION LIKE '%C%' AND E.CONFERENCIA = 'East');
+
+SELECT COUNT(*) AS CANTIDAD
+FROM ESTADISTICAS AS E
+WHERE Asistencias_por_partido > (
+	SELECT COUNT(*)
+    FROM JUGADORES
+    WHERE NOMBRE_EQUIPO = 'Heat');
+
+SELECT COUNT(*)
+FROM PARTIDOS
+WHERE TEMPORADA LIKE '%99%';
+
+
+SELECT COUNT(*)
+FROM JUGADORES AS J
+INNER JOIN EQUIPOS AS E ON J.NOMBRE_EQUIPO = E.NOMBRE
+WHERE J.PROCEDENCIA = 'Michigan' AND E.CONFERENCIA = 'West';
+
+SELECT COUNT(*)
+FROM JUGADORES AS J
+WHERE J.PESO >= 195
+
+
+SELECT
+    FLOOR(AVG(Puntos_por_partido)) AS promedio_puntos_redondeado,
+    FLOOR(count(Asistencias_por_partido)) AS suma_asistencias_redondeada,
+    FLOOR(SUM(Tapones_por_partido)) AS suma_tapones_redondeada
+FROM ESTADISTICAS;
+/*donde la divicion en tabla equipo sea central*/
+
+SELECT FLOOR(SUM(E.Puntos_por_partido)) AS suma_puntos_redondeada
+FROM ESTADISTICAS AS E
+INNER JOIN JUGADORES AS J ON E.JUGADOR = J.CODIGO
+WHERE J.Procedencia = 'Argentina';
+
+
+
+
+
 
 CREATE TABLE IF NOT EXISTS equipos (
   Nombre varchar(20) NOT NULL,
