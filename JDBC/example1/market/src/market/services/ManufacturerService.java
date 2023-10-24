@@ -1,10 +1,12 @@
 package market.services;
 
 import market.entities.Manufacturer;
+import market.entities.Product;
 import market.persistence.ManufacturerDAO;
 
 
 import java.util.Collection;
+import java.util.Scanner;
 
 public class ManufacturerService {
 
@@ -14,7 +16,21 @@ public class ManufacturerService {
         this.dao = new ManufacturerDAO();
     }
 
-    public void creatManufacturer(Manufacturer manufacturer) throws Exception {
+    public void creatManufacturer() throws Exception {
+
+        Scanner read = new Scanner(System.in);
+        
+        Manufacturer manufacturer = new Manufacturer();
+
+
+        System.out.println("============================");
+        System.out.println("enter the manufacturer name ");
+        String name = read.nextLine();
+
+
+        manufacturer.setName(name);
+
+
         try {
             if (dao.searchManufacturerById(manufacturer.getIdManuf()) != null) {
                 throw new Exception("the manufacturer already exist");
@@ -29,9 +45,6 @@ public class ManufacturerService {
     public Collection<Manufacturer> searchAllManufacturer() throws Exception {
         Collection<Manufacturer> manufacturer1;
         try {
-//            if (dao.searchProductById(product.getId()) != null) {
-//                throw new Exception("the product already exist");
-//            }
 
             manufacturer1 = dao.searchAllManufacturer();
         } catch (Exception e) {
@@ -50,6 +63,29 @@ public class ManufacturerService {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    public void printAllManufacturer () throws Exception {
+
+
+        try {
+
+            Collection<Manufacturer> manufacturer1 = dao.searchAllManufacturer();
+            if (manufacturer1 != null && !manufacturer1.isEmpty()) {
+                for (Manufacturer manufacturer : manufacturer1) {
+
+                    System.out.println("Codigo: " + manufacturer.getIdManuf());
+                    System.out.println("Nombre: " + manufacturer.getName());
+
+                    System.out.println("======================");
+                }
+            } else {
+                System.out.println("No se encontraron productos.");
+            }
+        } catch (Exception e) {
+            throw (e);
+        }
+
     }
 
 }

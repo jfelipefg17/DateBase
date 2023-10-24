@@ -39,3 +39,7 @@ INSERT INTO producto VALUES(11, 'Impresora HP Laserjet Pro M26nw', 180, 3);
 
 
 SELECT * FROM PRODUCTO;
+SELECT * FROM producto WHERE nombre LIKE 'Port%';
+SELECT * FROM producto
+WHERE precio = (SELECT MIN(precio) FROM producto);
+SELECT * FROM fabricante;

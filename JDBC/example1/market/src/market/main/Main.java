@@ -1,45 +1,19 @@
 package market.main;
 
-import market.entities.Manufacturer;
-import market.entities.Product;
+import market.services.ManufacturerService;
 import market.services.ProductService;
 
-import java.util.Collection;
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
-//       Product product = new Product(13,"paleta",5000,new Manufacturer(1, "Asus"));
-//
-//        ProductService productService = new ProductService();
-////
-////       productService.creatProduct(product);
-//
-//
-//        Collection<Product> products = productService.searchAllProducts();
-//
-//
-//
-//// Verifica si la colección de productos no es nula y no está vacía
-//        if (products != null && !products.isEmpty()) {
-//            // Itera a través de los productos e imprime cada uno
-//            for (Product product2 : products) {
-//                System.out.println("ID: " + product2.getIdProd());
-//                System.out.println("Nombre: " + product2.getName());
-//                System.out.println("Precio: " + product2.getPrice());
-//                System.out.println("ID de fabricante: " + product2.getManuf());
-//                System.out.println("======================");
-//            }
-//        } else {
-//            System.out.println("No se encontraron productos.");
-//        }
-
-        boolean ss = false;
+        boolean ss = true;
         int opt;
         Scanner read = new Scanner(System.in);
         ProductService productService = new ProductService();
-
+        ManufacturerService manufacturerService = new ManufacturerService();
         do {
 
             System.out.println("1. list names of product table");
@@ -65,24 +39,31 @@ public class Main {
 
             switch (opt) {
                 case 1:
-                    productService.searchAllProducts();
+                    productService.searchNameProducts();
                     break;
                 case 2:
+                    productService.searchNamePriceProducts();
                     break;
                 case 3:
+                    productService.priceBetween();
                     break;
                 case 4:
+                    productService.portatiles();
                     break;
                 case 5:
+                    productService.lowestPrice();
                     break;
                 case 6:
+                    productService.creatProduct();
                     break;
                 case 7:
+                    manufacturerService.creatManufacturer();
                     break;
                 case 8:
+                    productService.editproduct();
                     break;
                 case 9:
-                    ss = true;
+                    ss = false;
                     break;
                 default:
                     System.out.println("wrong opt");

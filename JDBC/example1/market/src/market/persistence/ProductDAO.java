@@ -11,7 +11,7 @@ public final class ProductDAO extends DAO {
 
     private final ManufacturerService manufacturerService;
 
-    public ProductDAO() {
+        public ProductDAO() {
         this.manufacturerService = new ManufacturerService();
     }
 
@@ -32,7 +32,7 @@ public final class ProductDAO extends DAO {
 
     }
 
-    public void modifyProduct (Product p1) throws Exception {
+    public void modifyProduct (Product p1, int code) throws Exception {
 
         try {
             if (p1 == null) {
@@ -40,9 +40,11 @@ public final class ProductDAO extends DAO {
             }
 
             // todo: modify query
-            String sql = "INSERT INTO productos (id, name, price, idManuf)" + "VALUES ('" + p1.getIdProd() + "' , '" + p1.getName() + "' , '" + p1.getPrice() + "' , '" + p1.getManuf().getIdManuf() + "' ); ";
+            String sql = "UPDATE producto SET nombre = '" + p1.getName() + "', precio = " + p1.getPrice() + ", codigo_fabricante = " + p1.getManuf().getIdManuf() + " WHERE codigo = " + code;
 
             cudDB(sql);
+
+
 
         }catch (Exception e) {
             throw e;
@@ -98,6 +100,35 @@ public final class ProductDAO extends DAO {
     public Collection<Product> searchAllProducts() throws Exception{
         try {
 
+            String sql = "SELECT * FROM producto ";
+            rDB(sql);
+
+            Product product;
+            Collection<Product> products = new ArrayList<>();
+            while (result.next()){
+
+                product = new Product();
+
+                product.setIdProd(result.getInt("codigo"));
+                product.setName(result.getString("nombre"));
+                product.setPrice(result.getDouble("precio"));
+                Integer idManufacture = result.getInt("codigo_fabricante");
+                Manufacturer manufacturer = manufacturerService.searchManufacturerById(idManufacture);
+                product.setIdManuf(manufacturer);
+                products.add(product);
+            }
+            disconnectDB();
+            return products;
+
+        } catch (Exception e) {
+            disconnectDB();
+            throw e;
+        }
+    }
+
+    public Collection<Product> searchNameProducts() throws Exception{
+        try {
+
             String sql = "SELECT nombre FROM producto ";
             rDB(sql);
 
@@ -113,6 +144,35 @@ public final class ProductDAO extends DAO {
                 //Integer idManufacture = result.getInt("codigo_fabricante");
                 //Manufacturer manufacturer = manufacturerService.searchManufacturerById(idManufacture);
                 //product.setIdManuf(manufacturer);
+                //products.add(product);
+            }
+            disconnectDB();
+            return products;
+
+        } catch (Exception e) {
+            disconnectDB();
+            throw e;
+        }
+    }
+
+    public Collection<Product> searchNamePriceProducts() throws Exception{
+        try {
+
+            String sql = "SELECT nombre, precio FROM producto ";
+            rDB(sql);
+
+            Product product;
+            Collection<Product> products = new ArrayList<>();
+            while (result.next()){
+
+                product = new Product();
+
+                //product.setIdProd(result.getInt("codigo"));
+                product.setName(result.getString("nombre"));
+                product.setPrice(result.getDouble("precio"));
+                //Integer idManufacture = result.getInt("codigo_fabricante");
+                //Manufacturer manufacturer = manufacturerService.searchManufacturerById(idManufacture);
+                //product.setIdManuf(manufacturer);
                 products.add(product);
             }
             disconnectDB();
@@ -122,6 +182,34 @@ public final class ProductDAO extends DAO {
             disconnectDB();
             throw e;
         }
+    }
+
+    public Product lowestPrice () throws Exception {
+            try {
+
+                String sql = "";
+                rDB(sql);
+
+                Product product = null;
+                while (result.next()){
+
+                    product = new Product();
+
+                    product.setIdProd(result.getInt("codigo"));
+                    product.setName(result.getString("nombre"));
+                    product.setPrice(result.getDouble("precio"));
+                    Integer idManufacture = result.getInt("codigo_fabricante");
+                    Manufacturer manufacturer = manufacturerService.searchManufacturerById(idManufacture);
+                    product.setIdManuf(manufacturer);
+                }
+                disconnectDB();
+                return product;
+
+            } catch (Exception e) {
+                disconnectDB();
+                throw e;
+            }
+
     }
 
 }

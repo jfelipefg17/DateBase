@@ -1,19 +1,20 @@
 package market.persistence;
 
-
 import market.entities.Manufacturer;
+import market.services.ProductService;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public final class ManufacturerDAO extends DAO {
 
+
     public void safeManufacturer (Manufacturer m1) throws Exception {
 
         try {
-//            if (p1 == null) {
-//                throw new Exception("the product is null");
-//            }
+           if (m1 == null) {
+               throw new Exception("the manufactrurer is null");
+            }
 
             String sql = "INSERT INTO fabricante (codigo, nombre)" + "VALUES ('" + m1.getIdManuf() + "' , '" + m1.getName() + "' ); ";
 
