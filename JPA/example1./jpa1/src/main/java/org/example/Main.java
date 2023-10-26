@@ -8,8 +8,9 @@ public class Main {
 
   public static void main(String[] args) {
     System.out.println("Hello world!");
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa");
-    EntityManager em = emf.createEntityManager();
+//    EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa");
+//    EntityManager em = emf.createEntityManager();
+    EntityManager em = Persistence.createEntityManagerFactory("Market").createEntityManager();
   }
 
 }
