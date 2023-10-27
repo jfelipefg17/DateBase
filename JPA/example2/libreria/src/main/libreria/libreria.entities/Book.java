@@ -1,22 +1,26 @@
 package libreria.entities;
 
+import jakarta.persistence.*;
 
+@Entity
 public class Book {
-
+  @Id
   private Long isbn;
-  private System tittle;
+  private String tittle;
   private Integer year;
   private Integer numberB;
   private Integer numberBLeftover;
   private Integer numberBRemaining;
   private Boolean availability;
+  @ManyToOne
   private Author author;
+  @ManyToOne
   private Publisher publisher;
 
   public Book(){
   }
 
-  public Book(Long isbn, System tittle, Integer year, Integer numberB, Integer numberBLeftover, Integer numberBRemaining, Boolean availability, Author author, Publisher publisher) {
+  public Book(Long isbn, String tittle, Integer year, Integer numberB, Integer numberBLeftover, Integer numberBRemaining, Boolean availability, Author author, Publisher publisher) {
     this.isbn = isbn;
     this.tittle = tittle;
     this.year = year;
@@ -36,11 +40,11 @@ public class Book {
     this.isbn = isbn;
   }
 
-  public System getTittle() {
+  public String getTittle() {
     return tittle;
   }
 
-  public void setTittle(System tittle) {
+  public void setTittle(String tittle) {
     this.tittle = tittle;
   }
 
@@ -114,4 +118,6 @@ public class Book {
             ", publisher=" + publisher +
             '}';
   }
+
+
 }

@@ -1,79 +1,49 @@
 package persistence;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
 import java.sql.*;
 
 public abstract class DAO {
-  protected Connection connection;
-  protected ResultSet result = null;
-  protected Statement sentence = null;
+  protected final EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Act1PU");
+  protected EntityManager em = emf.createEntityManager();
 
-  private final String JDBCURL = "jdbc:mysql://localhost:3306/libreria";
-  private final String USER = "jfelipefg17";
-  private final String PASSWORD = "1001445250Fg.";
-  private final String DRIVER = "com.mysql.cj.jdbc.Driver";
-
-  protected void connectDB () throws SQLException, ClassNotFoundException {
-
-    try {
-      // Establecer la conexión a la base de dato
-      Class.forName(DRIVER);
-      connection = DriverManager.getConnection(JDBCURL, USER, PASSWORD);
-      if (connection != null) {
-        System.out.println("Successful connection to the database.");
-        // Aquí puedes ejecutar consultas SQL y otras operaciones con la base de datos.//connection.close();
-      }
-
-    }catch (ClassNotFoundException | SQLException e) {
-      throw e;
-      //System.out.println("Error when connecting to the database: " + e.getMessage());
-    }
-
-  }
-
-  protected void disconnectDB () throws SQLException {
-
-    try {
-      if (result != null) {
-        result.close();
-      }
-      if (sentence != null) {
-        sentence.close();
-      }
-      if (connection != null) {
-        connection.close();
-      }
-      System.out.println("Successful disconnection to the database.");
-    }catch (Exception e) {
-      throw e;
-      //System.out.println("Error when disconnecting to the database:" + e.getMessage());
-    }
-
-  }
-
-
-  protected void cudDB (String sql) throws SQLException, ClassNotFoundException {
-    try {
-      connectDB();
-      sentence = connection.createStatement();
-      sentence.executeUpdate(sql);
-
-    }catch (ClassNotFoundException | SQLException e) {
-      throw e;
-      //System.out.println("Error CUD sql query");
-    }finally {
-      disconnectDB();
+  protected void connect() {
+    if (!em.isOpen()) {
+      em = emf.createEntityManager();
     }
   }
 
-  public void rDB (String sql ) throws SQLException, ClassNotFoundException {
-    try {
-      connectDB();
-      sentence = connection.createStatement();
-      result = sentence.executeQuery(sql);
-    }catch (ClassNotFoundException | SQLException e) {
-      throw e;
+  protected void disconnect() {
+    if (em.isOpen()) {
+      em.close();
     }
   }
 
+  protected void safe(Object obj) {
+    connect();
+    em.getTransaction().begin();
+    em.persist(obj);
+    em.getTransaction().commit();
+    disconnect();
+  }
+
+  protected void edit(Object obj) {
+    connect();
+    em.getTransaction().begin();
+    em.merge(obj);
+    em.getTransaction().commit();
+    disconnect();
+  }
+
+  protected void delete(Object obj) {
+    connect();
+    em.getTransaction().begin();
+    em.remove(obj);
+    em.getTransaction().commit();
+    disconnect();
+  }
 
 }
