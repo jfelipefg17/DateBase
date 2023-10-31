@@ -7,7 +7,7 @@ import jakarta.persistence.Persistence;
 import java.sql.*;
 
 public abstract class DAO {
-  protected final EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_Act1PU");
+  protected final EntityManagerFactory emf = Persistence.createEntityManagerFactory("main");
   protected EntityManager em = emf.createEntityManager();
 
   protected void connect() {
