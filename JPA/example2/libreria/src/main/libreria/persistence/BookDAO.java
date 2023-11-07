@@ -35,6 +35,21 @@ public class BookDAO extends DAO{
     return book;
   }
 
+  public Book searchBookByNameOfAuthor(String name) {
+    connect();
+    Book book = (Book) em.createQuery("SELECT B FROM Book B WHERE B.author.name = :name").setParameter("name", name).getSingleResult();
+    disconnect();
+    return book;
+  }
+
+
+  public Book searchBookByNameOfPublisher(String name) {
+    connect();
+    Book book = (Book) em.createQuery("SELECT B FROM Book B WHERE B.publisher.name = :name").setParameter("name", name).getSingleResult();
+    disconnect();
+    return book;
+  }
+
   public List<Book> listBooks(){
     connect();
     List<Book> books = (List<Book>) em.createQuery("SELECT B FROM Book B").getResultList();

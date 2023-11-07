@@ -73,6 +73,7 @@ public class AuthorService {
     List<Author> authors = DAO.listAuthors();
 
     for (Author aux: authors) {
+//      System.out.println(aux.toString());
       System.out.println("NAME: " + aux.getName());
       System.out.println("ID: " + aux.getId());
       System.out.println("AVAILABILITY: " + aux.getAvailability());
